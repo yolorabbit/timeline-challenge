@@ -1,43 +1,46 @@
-export const TrackList = () => {
-  // TODO: implement scroll sync with `KeyframeList`
+import { useRef, useEffect } from "react";
+
+type TrackListProps = {
+  onScrollSync: (scrollTop: number) => void;
+  syncScrollTop: number;
+};
+
+export const TrackList = ({ onScrollSync, syncScrollTop }: TrackListProps) => {
+  const trackListRef = useRef<HTMLDivElement>(null);
+  const isSyncing = useRef(false);
+
+  const handleScroll = () => {
+    if (isSyncing.current) {
+      isSyncing.current = false;
+      return;
+    }
+    if (trackListRef.current) {
+      onScrollSync(trackListRef.current.scrollTop);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      trackListRef.current &&
+      trackListRef.current.scrollTop !== syncScrollTop
+    ) {
+      isSyncing.current = true;
+      trackListRef.current.scrollTop = syncScrollTop;
+    }
+  }, [syncScrollTop]);
 
   return (
     <div
-      className="grid grid-flow-row auto-rows-[40px]
-      border-r border-solid border-r-gray-700 
-      overflow-auto"
+      className="grid grid-flow-row auto-rows-[40px] border-r border-solid border-r-gray-700 overflow-auto"
       data-testid="track-list"
+      ref={trackListRef}
+      onScroll={handleScroll}
     >
-      <div className="p-2">
-        <div>Track A</div>
-      </div>
-      <div className="p-2">
-        <div>Track B</div>
-      </div>
-      <div className="p-2">
-        <div>Track C</div>
-      </div>
-      <div className="p-2">
-        <div>Track D</div>
-      </div>
-      <div className="p-2">
-        <div>Track E</div>
-      </div>
-      <div className="p-2">
-        <div>Track F </div>
-      </div>
-      <div className="p-2">
-        <div>Track G</div>
-      </div>
-      <div className="p-2">
-        <div>Track H</div>
-      </div>
-      <div className="p-2">
-        <div>Track I </div>
-      </div>
-      <div className="p-2">
-        <div>Track J</div>
-      </div>
+      {Array.from({ length: 20 }).map((_, index) => (
+        <div key={index} className="p-2">
+          <div>{`Track ${String.fromCharCode(65 + (index % 26))}`}</div>
+        </div>
+      ))}
     </div>
   );
 };
