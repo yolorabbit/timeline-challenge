@@ -89,7 +89,7 @@ https://github.com/user-attachments/assets/3940cd0d-dd9d-4331-9172-592462ad65d3
 
 - [x] Playhead moves in sync with the Ruler and Keyframe List during horizontal scrolling
 - [x] Playhead maintains its relative position during horizontal scrolling
-- [x] Playhead is visible only when within the Timeline's visible area, using the `hidden` attribute when completely out of view
+- [ ] Playhead is visible only when within the Timeline's visible area, using the `hidden` attribute when completely out of view
 
 ## Implementation Guidelines
 

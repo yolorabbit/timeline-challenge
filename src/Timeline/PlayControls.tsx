@@ -43,14 +43,12 @@ export const PlayControls = ({
     finalSetter: (val: number) => void
   ) => {
     const validatedValue = validateValue(value, min, max, step);
+    let tempValue = validatedValue;
     if (isNaN(validatedValue)) {
-      tempSetter(
-        String(finalSetter === setCurrentTime ? currentTime : duration)
-      );
-    } else {
-      tempSetter(String(validatedValue));
-      finalSetter(validatedValue);
+      tempValue = finalSetter === setCurrentTime ? currentTime : duration;
     }
+    tempSetter(String(tempValue));
+    finalSetter(tempValue);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -145,7 +143,7 @@ export const PlayControls = ({
         Current
         <input
           ref={timeInputRef}
-          className="bg-gray-700 px-1 rounded"
+          className="bg-gray-700 px-1 rounded w-16"
           type="number"
           data-testid="current-time-input"
           min={0}
@@ -178,7 +176,7 @@ export const PlayControls = ({
       <fieldset className="flex gap-1">
         <input
           ref={durationInputRef}
-          className="bg-gray-700 px-1 rounded"
+          className="bg-gray-700 px-1 rounded w-16"
           type="number"
           data-testid="duration-input"
           min={100}

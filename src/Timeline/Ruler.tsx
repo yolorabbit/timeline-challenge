@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 
 type RulerProps = {
   setCurrentTime: (time: number) => void;
@@ -38,39 +38,33 @@ export const Ruler = ({
   const adjustToStep = (value: number, step: number) =>
     Math.round(value / step) * step;
 
-  const handleClickOrDrag = (event: React.MouseEvent<HTMLDivElement>) => {
+  const updateCurrentTime = (clientX: number) => {
     const ruler = rulerRef.current;
     if (!ruler) return;
 
     const rect = ruler.getBoundingClientRect();
     const scrollOffset = ruler.scrollLeft;
-    const clickedPosition = event.clientX - rect.left + scrollOffset;
-    const newTime = adjustToStep((clickedPosition / rect.width) * duration, 10);
+    const position = clientX - rect.left + scrollOffset;
+    const newTime = adjustToStep((position / rect.width) * duration, 10);
 
     setCurrentTime(Math.max(0, Math.min(duration, newTime)));
   };
 
-  const handleMouseMove = (event: MouseEvent) => {
-    if (event.buttons !== 1) return;
+  const handleMouseMove = useCallback(
+    (event: MouseEvent) => {
+      if (event.buttons !== 1) return;
+      updateCurrentTime(event.clientX);
+    },
+    [duration]
+  );
 
-    const ruler = rulerRef.current;
-    if (!ruler) return;
-
-    const rect = ruler.getBoundingClientRect();
-    const scrollOffset = ruler.scrollLeft;
-    const draggedPosition = event.clientX - rect.left + scrollOffset;
-    const newTime = adjustToStep((draggedPosition / rect.width) * duration, 10);
-
-    setCurrentTime(Math.max(0, Math.min(duration, newTime)));
-  };
-
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
-  };
+  }, [handleMouseMove]);
 
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    handleClickOrDrag(event);
+    updateCurrentTime(event.clientX);
 
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -81,7 +75,7 @@ export const Ruler = ({
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [handleMouseMove, handleMouseUp]);
 
   return (
     <div

@@ -1,10 +1,10 @@
 {
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./tests/**/*"],
   "compilerOptions": {
     "strict": true,
     "types": ["jest", "@testing-library/jest-dom"],
     "esModuleInterop": true,
-    "lib": ["dom", "es2015"],
+    "lib": ["dom", "esnext"],
     "jsx": "react-jsx",
     "noUnusedLocals": true,
     "noUnusedParameters": true

@@ -16,6 +16,8 @@ export const Timeline = () => {
     setSyncScrollTop(scrollTop);
   };
 
+  const playheadVisible = currentTime >= syncScrollLeft;
+
   return (
     <div
       className="relative h-[300px] w-full grid grid-cols-[300px_1fr] grid-rows-[40px_1fr] 
@@ -44,7 +46,10 @@ export const Timeline = () => {
         syncScrollTop={syncScrollTop}
         duration={duration}
       />
-      <Playhead currentTime={currentTime - syncScrollLeft} visible={true} />
+      <Playhead
+        currentTime={currentTime - syncScrollLeft}
+        visible={playheadVisible}
+      />
     </div>
   );
 };
