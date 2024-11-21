@@ -136,7 +136,7 @@ export const PlayControls = ({
 
   return (
     <div
-      className="flex items-center justify-between border-b border-r border-solid border-gray-700 px-2"
+      className="sticky left-0 top-0 z-20 bg-gray-800 flex items-center justify-between border-b border-r border-solid border-gray-700 px-2"
       data-testid="play-controls"
     >
       <fieldset className="flex gap-1">

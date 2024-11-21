@@ -19,6 +19,28 @@ Implement interactive features for a Timeline component. We will provide a basic
 - **Keyframe List**: The component that shows the Keyframes across all Tracks, synchronized with the Ruler.
 - **Segment**: The visual representation of the Timeline's duration in the Keyframe List.
 
+## Installation
+
+Install project with yarn
+
+```bash
+  yarn install
+```
+
+## How to run
+
+To run this project
+
+```bash
+  yarn start
+```
+
+To run the test
+
+```bash
+  yarn test
+```
+
 ## User Behavior Requirements
 
 ### 1. Number Input Field

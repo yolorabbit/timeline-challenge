@@ -31,7 +31,7 @@ export const TrackList = ({ onScrollSync, syncScrollTop }: TrackListProps) => {
 
   return (
     <div
-      className="grid grid-flow-row auto-rows-[40px] border-r border-solid border-r-gray-700 overflow-auto"
+      className="sticky left-0 top-0 z-20 bg-gray-800 grid grid-flow-row auto-rows-[40px] border-r border-solid border-r-gray-700 overflow-auto"
       data-testid="track-list"
       ref={trackListRef}
       onScroll={handleScroll}

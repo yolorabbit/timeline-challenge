@@ -37,8 +37,8 @@ export const Timeline = () => {
         syncScrollLeft={syncScrollLeft}
       />
       <TrackList
-        onScrollSync={(scrollTop) => handleScroll(syncScrollLeft, scrollTop)}
-        syncScrollTop={syncScrollTop}
+          onScrollSync={(scrollTop) => handleScroll(syncScrollLeft, scrollTop)}
+          syncScrollTop={syncScrollTop}
       />
       <KeyframeList
         onScrollSync={handleScroll}
